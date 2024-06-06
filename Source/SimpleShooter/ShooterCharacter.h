@@ -27,6 +27,18 @@ private:
 	UPROPERTY(EditAnywhere)
 	FName _jumpActionKey = TEXT("Jump");
 
+	UPROPERTY(EditAnywhere)
+	FName _lookUpControllerAxis = TEXT("LookUpController");
+
+	UPROPERTY(EditAnywhere)
+	float _lookUpControllerRate = 10.f;
+
+	UPROPERTY(EditAnywhere)
+	FName _lookSidewaysControllerAxis = TEXT("LookSidewaysController");
+	
+	UPROPERTY(EditAnywhere)
+	float _lookSidewaysControllerRate = 10.f;
+
 public:
 	// Sets default values for this character's properties
 	AShooterCharacter();
@@ -49,4 +61,8 @@ private:
 	void MoveSideways(float axis);
 
 	void JumpCallback();
+
+	void LookUpController(float axis);
+
+	void LookSidewaysController(float axis);
 };

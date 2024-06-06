@@ -33,7 +33,9 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis(this->_moveForwardAxisName, this, &AShooterCharacter::MoveForward);
 	PlayerInputComponent->BindAxis(this->_moveSidewaysAxisName, this, &AShooterCharacter::MoveSideways);
 	PlayerInputComponent->BindAxis(this->_lookUpAxisName, this, &AShooterCharacter::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis(this->_lookUpControllerAxis, this, &AShooterCharacter::LookUpController);
 	PlayerInputComponent->BindAxis(this->_lookSidewaysAxisName, this, &AShooterCharacter::AddControllerYawInput);
+	PlayerInputComponent->BindAxis(this->_lookSidewaysControllerAxis, this, &AShooterCharacter::LookSidewaysController);
 	PlayerInputComponent->BindAction(this->_jumpActionKey, EInputEvent::IE_Pressed, this, &AShooterCharacter::JumpCallback);
 }
 
@@ -51,4 +53,14 @@ void AShooterCharacter::JumpCallback()
 {
 	UE_LOG(LogTemp, Log, TEXT("JUMPING!!"));
 	this->Jump();
+}
+
+void AShooterCharacter::LookUpController(float axis)
+{
+	this->AddControllerPitchInput(axis * this->_lookUpControllerRate * this->GetWorld()->DeltaTimeSeconds);
+}
+
+void AShooterCharacter::LookSidewaysController(float axis)
+{
+	this->AddControllerYawInput(axis * this->_lookSidewaysControllerRate * this->GetWorld()->DeltaTimeSeconds);
 }
