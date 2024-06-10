@@ -41,12 +41,12 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 void AShooterCharacter::MoveForward(float axis)
 {
-	this->AddMovementInput(this->GetActorForwardVector() * axis * 10.f);
+	this->AddMovementInput(this->GetActorForwardVector() * axis);
 }
 
 void AShooterCharacter::MoveSideways(float axis)
 {
-	this->AddMovementInput(this->GetActorRightVector() * axis * 10.f);
+	this->AddMovementInput(this->GetActorRightVector() * axis);
 }
 
 void AShooterCharacter::JumpCallback()
