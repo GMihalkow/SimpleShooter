@@ -18,9 +18,17 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* _mesh;
 	
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* _shootEffect;
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* _shootSpawnPoint;
+
 public:
 	// Sets default values for this actor's properties
 	AGun();
+
+	void PullTrigger();
 
 protected:
 	// Called when the game starts or when spawned

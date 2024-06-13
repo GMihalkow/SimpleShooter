@@ -32,6 +32,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	FName _lookUpControllerAxis = TEXT("LookUpController");
 
+	UPROPERTY(EditDefaultsOnly)
+	FName _shootAction = TEXT("Shoot");
+
 	UPROPERTY(EditAnywhere)
 	float _lookUpControllerRate = 10.f;
 
@@ -73,4 +76,6 @@ private:
 	void LookUpController(float axis);
 
 	void LookSidewaysController(float axis);
+
+	void ShootCallback();
 };

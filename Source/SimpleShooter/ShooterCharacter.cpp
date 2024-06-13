@@ -45,6 +45,7 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis(this->_lookSidewaysAxisName, this, &AShooterCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis(this->_lookSidewaysControllerAxis, this, &AShooterCharacter::LookSidewaysController);
 	PlayerInputComponent->BindAction(this->_jumpActionKey, EInputEvent::IE_Pressed, this, &AShooterCharacter::JumpCallback);
+	PlayerInputComponent->BindAction(this->_shootAction, EInputEvent::IE_Pressed, this, &AShooterCharacter::ShootCallback);
 }
 
 void AShooterCharacter::MoveForward(float axis)
@@ -71,4 +72,9 @@ void AShooterCharacter::LookUpController(float axis)
 void AShooterCharacter::LookSidewaysController(float axis)
 {
 	this->AddControllerYawInput(axis * this->_lookSidewaysControllerRate * this->GetWorld()->DeltaTimeSeconds);
+}
+
+void AShooterCharacter::ShootCallback()
+{
+	this->_gun->PullTrigger();
 }

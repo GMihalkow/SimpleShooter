@@ -3,6 +3,7 @@
 
 #include "Gun.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AGun::AGun()
@@ -15,6 +16,15 @@ AGun::AGun()
 
 	this->_mesh = this->CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MESH"));
 	this->_mesh->AttachToComponent(this->_root, FAttachmentTransformRules::SnapToTargetIncludingScale);
+
+	this->_shootSpawnPoint = this->CreateDefaultSubobject<USceneComponent>(TEXT("SPAWN_POINT"));
+	this->_shootSpawnPoint->AttachToComponent(this->_root, FAttachmentTransformRules::SnapToTargetIncludingScale);
+}
+
+void AGun::PullTrigger()
+{
+	UE_LOG(LogTemp, Log, TEXT("SHOOTING!!!"));
+	UGameplayStatics::SpawnEmitterAttached(this->_shootEffect, this->_shootSpawnPoint);
 }
 
 // Called when the game starts or when spawned
