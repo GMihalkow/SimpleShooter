@@ -47,6 +47,12 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AGun> _gunBlueprint;
 
+	UPROPERTY(VisibleDefaultsOnly)
+	float _maxHealth = 100.f;
+
+	UPROPERTY(VisibleAnywhere)
+	float _currentHealth = 0.f;
+
 	UPROPERTY()
 	AGun* _gun;
 
@@ -64,6 +70,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+	UFUNCTION(BlueprintPure)
+	bool IsDead() const;
 
 private:
 

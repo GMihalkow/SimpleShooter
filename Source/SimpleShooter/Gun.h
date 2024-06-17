@@ -22,7 +22,16 @@ private:
 	UParticleSystem* _shootEffect;
 
 	UPROPERTY(EditAnywhere)
+	UParticleSystem* _hitEffect;
+
+	UPROPERTY(EditAnywhere)
 	USceneComponent* _shootSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+	float _maxRange = 1000.f;
+
+	UPROPERTY(EditAnywhere)
+	float _attackDamage = 1.f;
 
 public:
 	// Sets default values for this actor's properties

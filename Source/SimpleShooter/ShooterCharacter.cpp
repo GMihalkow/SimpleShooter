@@ -16,6 +16,8 @@ AShooterCharacter::AShooterCharacter()
 void AShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	this->_currentHealth = this->_maxHealth;
 
 	this->_gun = this->GetWorld()->SpawnActor<AGun>(this->_gunBlueprint);
 	this->GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
@@ -33,6 +35,11 @@ void AShooterCharacter::Tick(float DeltaTime)
 
 }
 
+bool AShooterCharacter::IsDead() const
+{
+	return this->_currentHealth <= 0.f;
+}
+
 // Called to bind functionality to input
 void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -46,6 +53,22 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis(this->_lookSidewaysControllerAxis, this, &AShooterCharacter::LookSidewaysController);
 	PlayerInputComponent->BindAction(this->_jumpActionKey, EInputEvent::IE_Pressed, this, &AShooterCharacter::JumpCallback);
 	PlayerInputComponent->BindAction(this->_shootAction, EInputEvent::IE_Pressed, this, &AShooterCharacter::ShootCallback);
+}
+
+float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float takenDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	this->_currentHealth -= takenDamage;
+	
+	if (this->_currentHealth < 0)
+	{
+		this->_currentHealth = 0.f;
+	}
+
+	UE_LOG(LogTemp, Log, TEXT("HEALTH LEFT => %f"), this->_currentHealth);
+
+	return takenDamage;
 }
 
 void AShooterCharacter::MoveForward(float axis)
