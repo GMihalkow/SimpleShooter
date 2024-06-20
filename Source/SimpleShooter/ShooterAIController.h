@@ -13,5 +13,16 @@ UCLASS()
 class SIMPLESHOOTER_API AShooterAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+
+private:
+	UPROPERTY(EditAnywhere)
+	class UBehaviorTree* _behaviorTree;
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+	APawn* _player;
+
+	virtual void BeginPlay() override;
 };
