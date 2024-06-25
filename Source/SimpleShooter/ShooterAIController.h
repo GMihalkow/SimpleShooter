@@ -18,6 +18,11 @@ private:
 	UPROPERTY(EditAnywhere)
 	class UBehaviorTree* _behaviorTree;
 
+	FVector _startLocation;
+	FVector _playerLocation;
+	FVector _lastKnownPlayerLocation;
+	UBlackboardComponent* _blackboard;
+
 public:
 	virtual void Tick(float DeltaTime) override;
 
