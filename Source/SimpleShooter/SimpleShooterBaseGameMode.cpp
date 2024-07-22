@@ -5,4 +5,12 @@
 
 void ASimpleShooterBaseGameMode::PawnKilled(APawn* pawn)
 {
+	APlayerController* player = Cast<APlayerController>(pawn->GetController());
+
+	if (player == nullptr)
+	{
+		return;
+	}
+
+	player->GameHasEnded(nullptr, false);
 }

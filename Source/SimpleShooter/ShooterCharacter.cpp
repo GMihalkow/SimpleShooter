@@ -72,15 +72,15 @@ float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dama
 
 	if (this->IsDead())
 	{
-		this->DetachFromControllerPendingDestroy();
-		this->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
 		ASimpleShooterBaseGameMode* gameMode = this->GetWorld()->GetAuthGameMode<ASimpleShooterBaseGameMode>();
 
 		if (gameMode != nullptr)
 		{
 			gameMode->PawnKilled(this);
 		}
+
+		this->DetachFromControllerPendingDestroy();
+		this->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 
 	return takenDamage;
